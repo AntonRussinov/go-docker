@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  redis-server:
+    image: 'redis'
+  testexercise:
+    restart: always #on-failure | unless-stopped | "no"
+    image: testexercise
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      volumes: config.json #may be it doesn't work :) 
+    ports:
+      - 8080:8080
