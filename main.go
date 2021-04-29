@@ -25,6 +25,7 @@ func main() {
 
 	handler := handler.NewHandler()
 	config := config.NewConfig("app/config.json")
+
 	r.GET("/get/:key", handler.Get)
 	r.GET("/list", handler.List)
 	r.DELETE("/delete/:key", handler.Delete)
