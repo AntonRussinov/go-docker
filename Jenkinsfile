@@ -4,7 +4,7 @@ pipeline {
         go 'go1.16.3'
     }
     environment {
-        GO114MODULE = 'on'
+        //GO114MODULE = 'on'
         CGO_ENABLED = 0 
         GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
     }
@@ -13,6 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Compiling and building'
+                sh 'go mod tidy'
                 sh 'go build'
             }
         }
