@@ -3,6 +3,9 @@ pipeline {
     tools {
         go 'go1.16.3'
     }
+
+    def root = tool name: 'Go 1.9', type: 'go'
+ 
     environment {
         GO111MODULE = 'on'
         CGO_ENABLED = 0 
@@ -11,6 +14,9 @@ pipeline {
     
     stages {        
 
+        stage('Preparation') {
+            checkout scm
+        }   
         stage('Build') {
             steps {
                 echo 'Compiling and building'
