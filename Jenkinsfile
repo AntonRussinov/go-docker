@@ -3,22 +3,51 @@ pipeline {
     tools {
         go 'go1.16.3'
     }
-
-    def root = tool name: 'go1.16.3', type: 'go'
  
     environment {
         GO111MODULE = 'on'
-        CGO_ENABLED = 0 
-        GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
+        //CGO_ENABLED = 0 
+        //GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
     } 
     
-    stages {        
-
+    stages {   
+        stage('Compile') {
+            steps {
+                sh 'go build'
+            }
+        } 
+        stage('Test') {
+            environment {
+                CODECOV_TOKEN = credentials('codecov_token')
+            }
+            steps {
+                sh 'go test ./... -coverprofile=coverage.txt'
+                sh "curl -s https://codecov.io/bash | bash -s -"
+            }
+        }
+        stage('Code Analysis') {
+            steps {
+                sh 'curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | bash -s -- -b $GOPATH/bin v1.12.5'
+                sh 'golangci-lint run'
+            }
+        }
+        stage('Release') {
+            when {
+                buildingTag()
+            }
+            environment {
+                GITHUB_TOKEN = credentials('github_token')
+            }
+            steps {
+                sh 'curl -sL https://git.io/goreleaser | bash'
+            }
+        }
+/*
         stage('Build') {
             steps {
                 echo 'Compiling and building'
-                sh "${root}/bin/go build"
-                //sh 'go build'
+                //sh "${root}/bin/go build"
+                sh 'go build'
             }
         }
 
@@ -32,7 +61,7 @@ pipeline {
                 }
             }
         }
-        
+        */
     }
     post {
         always {
