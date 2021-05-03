@@ -13,7 +13,8 @@ pipeline {
     stages {   
         stage('Compile') {
             steps {
-                sh 'go build'
+                shell 'go version'
+                shell 'go build'
             }
         } 
         stage('Test') {
