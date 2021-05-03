@@ -14,7 +14,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Compiling and building'
-                sh 'go build'
+                sh "${root}/bin/go build"
+                //sh 'go build'
             }
         }
 
