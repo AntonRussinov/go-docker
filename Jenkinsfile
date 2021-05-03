@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
     tools {
         go 'go1.16.3'
     }
