@@ -13,6 +13,8 @@ pipeline {
     stages {   
         stage('Compile') {
             steps {
+                shell 'go mod init'
+                shell 'go mod tidy'
                 shell 'go build'
             }
         } 
