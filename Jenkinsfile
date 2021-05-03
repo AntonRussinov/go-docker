@@ -7,11 +7,11 @@ pipeline {
     environment {
         GO111MODULE = 'on'
         //CGO_ENABLED = 0 
-        //GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
+        GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
     } 
     
     stages {   
-        stage('Compile') {
+        stage('Build') {
             steps {
                 shell 'go mod init'
                 shell 'go mod tidy'
@@ -30,17 +30,7 @@ pipeline {
                 shell 'golangci-lint run'
             }
         }
-        stage('Release') {
-            when {
-                buildingTag()
-            }
-            environment {
-                GITHUB_TOKEN = credentials('github_token')
-            }
-            steps {
-                shell 'curl -sL https://git.io/goreleaser | bash'
-            }
-        }
+  
 /*
         stage('Build') {
             steps {
@@ -56,13 +46,13 @@ pipeline {
                     echo 'Running vetting'
                     sh 'go vet .'
                     echo 'Running test'
-                    sh ' go test -v' //cd test &&
+                    sh 'go test -v' //cd test &&
                 }
             }
         }
         */
     }
-    post {
+  /*  post {
         always {
             emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
                 recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
@@ -70,5 +60,5 @@ pipeline {
                 subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
             
         }
-    }  
+    } */ 
 }
