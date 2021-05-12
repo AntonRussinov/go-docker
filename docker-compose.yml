@@ -9,6 +9,6 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-      volumes: config.json #may be it doesn't work :) 
+      #volumes: config.json #may be it doesn't work :) 
     ports:
       - 8080:8080

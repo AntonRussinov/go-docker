@@ -40,7 +40,7 @@ pipeline {
                 shell 'make publish'
             }
         }
-  
+  //Dockergo-env.eba-uivxdche.us-east-2.elasticbeanstalk.com  
 /*
         stage('Build') {
             steps {
