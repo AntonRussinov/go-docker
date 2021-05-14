@@ -24,13 +24,15 @@ func main() {
 	r := gin.Default()
 
 	handler := handler.NewHandler()
-	config := config.NewConfig("config.json")
+	config := config.NewConfig("app/config.json")
 
 	r.GET("/get/:key", handler.Get)
 	r.GET("/list", handler.List)
 	r.DELETE("/delete/:key", handler.Delete)
 	r.POST("/upsert", handler.Upsert)
 	r.GET("/")
+	r.GET("/favicon.ico")
+	r.GET("/index.html")
 	r.GET("/redis", handler.Redis)
 	r.Run(":" + config.Port)
 	//r.Run("localhost" + ":" + "8080")
