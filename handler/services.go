@@ -3,6 +3,7 @@ package handler
 import (
 	"Projects/test_exercise/model"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -52,7 +53,7 @@ func (h *Handler) List(c *gin.Context) {
 func (h *Handler) Redis(c *gin.Context) {
 
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "redis-server:6379",
+		Addr:     os.Getenv("REDIS_URL"),
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})

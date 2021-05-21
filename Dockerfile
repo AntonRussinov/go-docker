@@ -11,8 +11,8 @@ RUN go build -o /go/bin/app/ -v ./...
 
 #final stage
 FROM alpine:latest
-EXPOSE 80
+EXPOSE 5000
 RUN apk --no-cache add ca-certificates
 COPY --from=builder /go/bin/app /app
-ENTRYPOINT ["/app/test_exercise"]
+ENTRYPOINT ["/app/test_exercise"] --port 5000
 LABEL Name=testexercise Version=0.0.1

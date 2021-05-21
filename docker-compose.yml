@@ -1,14 +1,29 @@
 version: '3.4'
 
 services:
+  nginx:
+    #restart: always
+    build: 
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports: 
+      - "3050:80"
+    depends_on:
+      - "testexercise"
+  postgres: 
+    image: 'postgres:latest'
+    #environment:
+      #- POSTGRES_PASSWORD=postgres_password
   redis-server:
-    image: 'redis'
+    image: 'redis:latest'
   testexercise:
     restart: always #on-failure | unless-stopped | "no"
     image: testexercise
     build:
       context: .
-      dockerfile: ./Dockerfile
-      #volumes: config.json #may be it doesn't work :) 
+      dockerfile: Dockerfile
     ports:
-      - 8080:8080
+      - "5000"
+    environment:
+      REDIS_URL: redis-server:6379
+     
