@@ -60,7 +60,11 @@ func (h *Handler) Redis(c *gin.Context) {
 
 	val, err := rdb.Get("visit").Result()
 	if err != nil {
-		c.JSON(http.StatusBadGateway, err)
+		err = rdb.Set("visit", 1, 0).Err()
+		if err != nil {
+			c.JSON(http.StatusBadGateway, err)
+		}
+		c.JSON(http.StatusOK, 1)
 	}
 	valInt, err := strconv.Atoi(val)
 	if err != nil {
