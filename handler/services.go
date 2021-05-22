@@ -52,9 +52,9 @@ func (h *Handler) List(c *gin.Context) {
 func (h *Handler) RedisStart(c *gin.Context) {
 
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     os.Getenv("REDIS_URL"),
-		Password: "", // no password set
-		DB:       0,  // use default DB
+		Addr:     "redis-server:6379", //os.Getenv("REDIS_URL"),
+		Password: "",                  // no password set
+		DB:       0,                   // use default DB
 	})
 
 	err := rdb.Set("visit", 1, 0).Err()
