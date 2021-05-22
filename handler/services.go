@@ -49,6 +49,24 @@ func (h *Handler) List(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
+func (h *Handler) RedisStart(c *gin.Context) {
+
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     os.Getenv("REDIS_URL"),
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
+
+	err := rdb.Set("visit", 1, 0).Err()
+	if err != nil {
+		c.JSON(http.StatusBadGateway, err)
+		return
+	}
+	c.JSON(http.StatusOK, "success")
+	return
+
+}
+
 //Redis
 func (h *Handler) Redis(c *gin.Context) {
 
@@ -59,13 +77,7 @@ func (h *Handler) Redis(c *gin.Context) {
 	})
 
 	val, err := rdb.Get("visit").Result()
-	if err != nil {
-		err1 := rdb.Set("visit", 1, 0).Err()
-		if err1 != nil {
-			c.JSON(http.StatusBadGateway, err)
-		}
-		c.JSON(http.StatusOK, 1)
-	}
+
 	valInt, err := strconv.Atoi(val)
 	if err != nil {
 		c.JSON(http.StatusBadGateway, err)
