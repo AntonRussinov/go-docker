@@ -34,6 +34,7 @@ func main() {
 	r.GET("/favicon.ico")
 	r.GET("/index.html")
 	r.GET("/redis", handler.Redis)
+	r.GET("/redis-start", handler.RedisStart)
 	r.Run(":" + config.Port)
 	//
 }
