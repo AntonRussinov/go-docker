@@ -6,16 +6,16 @@
             "image":"arussinov/testexercise",
             "hostname":"testexercise",
             "essential":false,
-            "Memory" : 64,
-            "MemoryReservation" : 64
+            "memory" : 64,
+            "memoryReservation" : 64
         },
         {
             "name":"nginx",
             "image":"arussinov/nginx",
             "hostname":"nginx",
             "essential":true,
-            "Memory" : 64,
-            "MemoryReservation" : 64,
+            "memory" : 64,
+            "memoryReservation" : 64,
             "portMappring":[
                 {
                     "hostPort":80,
