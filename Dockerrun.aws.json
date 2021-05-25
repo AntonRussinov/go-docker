@@ -2,12 +2,6 @@
     "AWSEBDockerrunVersion":2,
     "containerDefinitions":[
         {
-            "name":"redis-server",
-            "image":"redis:latest",
-            "hostname":"redis-server",
-            "essential":false
-        },
-        {
             "name":"testexercise",
             "image":"arussinov/testexercise",
             "hostname":"testexercise",
