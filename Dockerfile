@@ -10,9 +10,10 @@ RUN go build -o /go/bin/app/ -v ./...
 
 
 #final stage
-FROM alpine:latest
+FROM nginx
 RUN apk --no-cache add ca-certificates
 COPY --from=builder /go/bin/app /app
 ENTRYPOINT ["/app/test_exercise"] --port 5000
 LABEL Name=testexercise Version=0.0.1
+COPY ./handler/nginx/default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 5000
