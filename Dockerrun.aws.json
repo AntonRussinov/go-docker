@@ -21,10 +21,11 @@
                 }
             ],
             "links":["testexercise"],
-            "mountPoints":[{
-                "sourceVolume": "awseb-logs-nginx-proxy",
+            "mountPoints":[
+                {
+                "sourceVolume": "awseb-logs-nginx",
                 "containerPath": "/var/log/nginx"
-              }
+                }
             ]
         }
     ]
