@@ -6,7 +6,13 @@
             "image":"arussinov/testexercise",
             "hostname":"testexercise",
             "essential":false,
-            "memory" : 128
+            "memory" : 128,
+            "mountPoints":[
+                {
+                "sourceVolume": "awseb-logs-testexercise",
+                "containerPath": "/var/log/testexercise"
+                }
+            ]
         },
         {
             "name":"nginx",
