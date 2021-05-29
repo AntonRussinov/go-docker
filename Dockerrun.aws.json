@@ -20,7 +20,12 @@
                     "containerPort":80
                 }
             ],
-            "links":["testexercise"]
+            "links":["testexercise"],
+            "mountPoints":[{
+                "sourceVolume": "awseb-logs-nginx-proxy",
+                "containerPath": "/var/log/nginx"
+              }
+            ]
         }
     ]
 }
